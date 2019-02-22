@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>Twilight Sparkle's Lines Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <style type="text/css">
+        h2{
+            text-align: center;
+        }
+        #chatBox{
+            height: 400px;
+            width: 49%;
+            overflow-y: scroll;
+            border: 2px solid #eeefed;
+            background-color: #eeefed;
+            border-radius: 25px;
+            padding-top: 10px;
+        }
+        ::-webkit-scrollbar { 
+            display: none; 
+        }
+        #msgBox{}
+        .botMsgBox{
+            max-width: 250px;
+        }
+        .botMsgBox div{
+            border-radius: 5px;
+            padding-left: 3px;
+            padding-right: 5px;
+            display: inline-block;
+            background-color: white;
+            color: indigo;
+        }
+        .userMsgBox{
+            border-radius: 5px;
+            background-color: #ace045;
+            float: right;
+            padding-left: 3px;
+            max-width: 250px;
+            padding-right: 5px;
+            padding-right: 3px;
+            background-color: darkorchid;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <h1 style="text-align:center;font-family:Helvetica; color:white; background-color:purple; height:45px">Twilight Sparkle's Lines Generator</h1>
+    <hr style="width:90%; height:2px; border:none; background-color:#F5F5F5">
+
+    <div style="text-align:center;">
+        <h1 style="font-family:Arial; color:indigo;">Enjoy Talking with Twilight Sparkle!</h1>
+        <img src="static/Twilight_Sparkle.png"/>
+    </div>
+    <br>
+
+    <div id="chatBox" class="col-sm-6 col-sm-offset-3">
+        <div class="botMsgBox"><div><p>Hello, my name is Twilight Sparkle. What kind of topic do you want me to talk about today?</p></div></div>
+    </div>
+    <div class="row">
+        <div id="msgBox" class="col-sm-6 col-sm-offset-3">
+            <div class="input-group">
+                <input id="userMsg" type="text" class="form-control" aria-label="...">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-primary" id="msgBtn" style="background-color:#4B0082">&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</button>
+                </div><!-- /btn-group -->
+            </div><!-- /input-group -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('#msgBtn').on('click', function(){
+            var userMsg = $('#userMsg').val();
+            $('#chatBox').append('<div class="userMsgBox">'+userMsg+'</div><br><br>');
+            $('#userMsg').val('');
+            $.post("chat", {userMsg: userMsg}, function(result,status){
+                console.log(status);
+                $('#chatBox').append('<div class="botMsgBox"><div><p>'+result+'</p></div></div>');
+            });
+        })
+    </script>
+
+    
+
+</body>
+</html>
